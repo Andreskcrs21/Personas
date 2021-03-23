@@ -14,6 +14,10 @@ public class controlador extends Conexion{
         Personas persona = new Personas(nombre, apellidos, id);
         return this.Insertar(persona);
     }
+    public boolean actualizarPersona(int id, String nombre, String apellidos) {
+        Personas actualizado = new Personas(nombre, apellidos, id);        
+        return this.actualizarPersonas(actualizado);
+    }
     
     public DefaultTableModel personas() {
         String titulos[] = {"Id", "Nombre", "Apellidos"};

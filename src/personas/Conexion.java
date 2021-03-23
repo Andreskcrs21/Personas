@@ -85,6 +85,28 @@ public class Conexion {
             return false;
         }
     }
+      public boolean actualizarPersonas(Personas objeto) {
+        try {
+            //BUSCAMOS SI EXISTE EL OBJETO, SI ES ASÍ LO ACTUALIZAMOS EN LA BASE DE DATOS
+            this.open();
+            ObjectSet resultados = this.oc.get(new Personas(null, null, objeto.getId()));
+            if (resultados.size() > 0) {                
+                Personas resultado = (Personas) resultados.next();
+                resultado.setNombres(objeto.getNombres());
+                resultado.setApellidos(objeto.getApellidos());
+                resultado.setId(objeto.getId());
+                this.oc.set(resultado);
+                this.oc.close();
+                return true;
+            } else {
+                this.oc.close();
+                return false;
+            }
+        } catch (DatabaseClosedException | DatabaseReadOnlyException e) {
+            System.out.println("bdoo.Controlador.insertarPersona() : " + e);
+            return false;
+        }
+    }
      
     
     

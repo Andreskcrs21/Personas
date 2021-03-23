@@ -49,6 +49,7 @@ public class interfaz extends javax.swing.JFrame {
         tablapersona = new javax.swing.JTable();
         botguardar = new javax.swing.JButton();
         botlimpiar = new javax.swing.JButton();
+        botactualizar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -65,7 +66,7 @@ public class interfaz extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cuerpo"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cuerpo"));
 
         jLabel2.setText("Nombre");
 
@@ -145,6 +146,13 @@ public class interfaz extends javax.swing.JFrame {
             }
         });
 
+        botactualizar.setText("Actualizar");
+        botactualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botactualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,19 +161,21 @@ public class interfaz extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(21, 21, 21))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
+                        .addGap(104, 104, 104)
                         .addComponent(botguardar)
-                        .addGap(97, 97, 97)
+                        .addGap(26, 26, 26)
+                        .addComponent(botactualizar)
+                        .addGap(29, 29, 29)
                         .addComponent(boteliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                        .addGap(34, 34, 34)
                         .addComponent(botlimpiar)
-                        .addGap(31, 31, 31))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
@@ -182,7 +192,8 @@ public class interfaz extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botguardar)
                     .addComponent(boteliminar)
-                    .addComponent(botlimpiar))
+                    .addComponent(botlimpiar)
+                    .addComponent(botactualizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -236,6 +247,20 @@ public class interfaz extends javax.swing.JFrame {
     private void botlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botlimpiarActionPerformed
         limpiar();
     }//GEN-LAST:event_botlimpiarActionPerformed
+
+    private void botactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botactualizarActionPerformed
+         int id = Integer.valueOf(txtid.getText());
+        String nombre = txtnombre.getText();
+        String apellidos = txtapellido.getText();
+        boolean insertado = this.controlador.actualizarPersona(id, nombre, apellidos);
+        if (insertado == true) {
+            JOptionPane.showMessageDialog(rootPane, "Persona Actualizada");
+            limpiar();
+            tablapersona.setModel(this.controlador.personas());
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No se pudo actualizar la persona");
+        }
+    }//GEN-LAST:event_botactualizarActionPerformed
     
     public void seleccionarPersonas() {
         tablapersona.addMouseListener(new MouseAdapter() {
@@ -287,6 +312,7 @@ public class interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botactualizar;
     private javax.swing.JButton boteliminar;
     private javax.swing.JButton botguardar;
     private javax.swing.JButton botlimpiar;
